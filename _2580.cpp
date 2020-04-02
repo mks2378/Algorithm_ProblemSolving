@@ -64,3 +64,282 @@ int main(){
    dfs(0);
    return 0;
 }
+
+/*
+<처음 나의 접근>
+- 2차원 배열에서 각 위치마다 세로, 가로, 사각형(9개 요소)에 대하여 for문으로 1~9 값이 1개씩 있는지 확인 
+- 특히, Square_check() 함수에서 사각형(9개 요소)에 대한 모든 경우의 수를 계산하여 코드가 길어졌다. 
+- 스도쿠가 완성되었는지 판단 위해 Check_Completion()도 시간을 증가시켰다.
+
+<해결 방법>
+- 각각의 row, column, square를 2차원 배열로 생성하여 첫 번째 인덱스는 몇 번째인지를 가르키고, 두 번째 인덱스는
+  인덱스 자체가 값을 의미하게 하여, 해당 값이 존재하는지 여부를 표현하였다.
+- 아이디어: 81개 각각의 위치에 대하여 값이 0일 때, 해당 위치에 대한 row, column, square에서 중복되지 않는 값(1~9)로 선택하여 dfs 진행 
+- 각각의 위치가 어느 square에 해당하는지 인덱스로 표현하는 아이디어  
+- void dfs(int cnt) 에서 cnt==81에서 종료, cnt 0~80을 2차원 배열의 인덱스(y,x)로 표현하는 아이디어  
+
+#include <iostream>
+using namespace std;
+
+int MAP[9][9];
+bool Completed;
+
+void Row_check(int x){
+	int idx, cnt=0;
+	int sum=45;
+	for(int i=0;i<9;i++){
+		if(MAP[x][i]==0){
+			cnt++;
+			idx=i;
+		}
+		else
+			sum-=MAP[x][i];
+	}
+	
+	if(cnt>1 || cnt==0)
+		return;
+	else
+		MAP[x][idx] = sum;
+}
+
+void Column_check(int x){
+	int idx, cnt=0;
+	int sum=45;
+	for(int i=0;i<9;i++){
+		if(MAP[i][x]==0){
+			cnt++;
+			idx=i;
+		}
+		else
+			sum-=MAP[i][x];
+	}
+	
+	if(cnt>1 || cnt==0)
+		return;
+	else
+		MAP[idx][x] = sum;
+}
+
+void Square_check(int x,int y){
+	int idx_x, idx_y, cnt=0;
+	int sum=45;
+	
+	if(x>=0&&x<=2&&y>=0&&y<=2){
+		for(int i=0;i<=2;i++)
+			for(int j=0;j<=2;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=0&&x<=2&&y>=3&&y<=5){
+		for(int i=0;i<=2;i++)
+			for(int j=3;j<=5;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=0&&x<=2&&y>=6&&y<=8){
+		for(int i=0;i<=2;i++)
+			for(int j=6;j<=8;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=3&&x<=5&&y>=0&&y<=2){
+		for(int i=3;i<=5;i++)
+			for(int j=0;j<=2;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=3&&x<=5&&y>=3&&y<=5){
+		for(int i=3;i<=5;i++)
+			for(int j=3;j<=5;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=3&&x<=5&&y>=6&&y<=8){
+		for(int i=3;i<=5;i++)
+			for(int j=6;j<=8;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=6&&x<=8&&y>=0&&y<=2){
+		for(int i=6;i<=8;i++)
+			for(int j=0;j<=2;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else if(x>=6&&x<=8&&y>=3&&y<=5){
+		for(int i=6;i<=8;i++)
+			for(int j=3;j<=5;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+	
+	else{
+		for(int i=6;i<=8;i++)
+			for(int j=6;j<=8;j++){
+				if(MAP[i][j]==0){
+					cnt++;
+					idx_y = i;
+					idx_x = j;
+				}
+				else
+					sum-=MAP[i][j];
+			}
+		
+		if(cnt>1||cnt==0)
+			return;
+		else
+			MAP[idx_y][idx_x] = sum;
+			
+		return;
+	}
+}
+
+bool Check_Completion(){
+	for(int i=0;i<9;i++)
+		for(int j=0;j<9;j++){
+			if(MAP[i][j]==0)
+				return false;	
+		}
+	return true;				
+}
+
+void Check(int k,int l){
+	Row_check(k);
+	Column_check(l);
+	Square_check(k,l);
+}
+
+int main(){
+	
+	for(int i=0;i<9;i++)
+		for(int j=0;j<9;j++)
+			cin>>MAP[i][j];
+	
+	while(!Completed){
+		for(int i=0;i<9;i++)
+			for(int j=0;j<9;j++)
+				Check(i,j);
+				
+		Completed = Check_Completion();		
+	}
+	
+	for(int i=0;i<9;i++){
+		for(int j=0;j<9;j++)
+			cout<<MAP[i][j]<<' ';
+		cout<<'\n';
+	}	
+	
+	return 0;
+} 
+*/
