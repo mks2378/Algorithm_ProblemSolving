@@ -91,3 +91,74 @@ int main(){
 	
 	return 0;
 }
+
+/* 처음에 잘못짠 코드  
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int N,M;
+vector<pair<int, int>> Coin;
+bool wall[20][20];
+int least_move = 987654321;
+
+typedef struct move{
+	int y,x;
+}Move;
+
+Move move_pos[4] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+bool Promising(vector<pair<int, int>> &v){
+	if((Coin[0].first>=N||Coin[0].first<0||Coin[0].second>=M||Coin[0].second<0)
+	&& (Coin[1].first<N && Coin[1].first>=0 && Coin[1].second<M && Coin[1].second>=0))
+		return true;
+	else if((Coin[1].first>=N||Coin[1].first<0||Coin[1].second>=M||Coin[1].second<0)
+	&& (Coin[0].first<N && Coin[0].first>=0 && Coin[0].second<M && Coin[0].second>=0))
+		return true;
+	else
+		false;
+}
+
+void dfs(int cnt, vector<pair<int, int>> &Coin){
+	if(least_move==-1)
+		return;
+	
+	if(cnt>10){
+		least_move = -1;
+		return;
+	}
+	
+	if(Promising(Coin)){
+		least_move = min(least_move, cnt);
+		return;
+	}
+	
+	vector<pair<int, int>> C;
+	for(int i=0;i<4;i++){
+		for(int j=0;j<2;j++){
+			if(!wall[Coin[j].first+move_pos[i].x][Coin[j].second+move_pos[i].y])
+				C.push_back(make_pair(Coin[j].first+move_pos[i].y, Coin[j].first+move_pos[i].x));
+		}
+		dfs(cnt+1, C);
+	}
+}
+
+int main(){	
+	cin>>N>>M;
+	for(int i=0;i<N;i++){
+		string s;
+		cin>>s;
+		for(int j=0;j<M;j++){
+			if(s[j]=='#')
+				wall[i][j] = true;
+			if(s[j]=='o')
+				Coin.push_back(make_pair(i,j));
+		}
+	}
+	
+	dfs(0, Coin);
+	cout<<least_move;
+	return 0;
+}
+*/
