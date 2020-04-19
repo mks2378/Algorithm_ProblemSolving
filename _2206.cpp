@@ -20,8 +20,8 @@ int bfs(){
 	while(!Q.empty()){
 		int x = Q.front().first.first;
 		int y = Q.front().first.second;
-		int B = Q.front().second.first;
-		int Cnt = Q.front().second.second;
+		int B = Q.front().second.first; // 현재까지 벽을 부순 횟수  
+		int Cnt = Q.front().second.second; // 현재까지 지나쳐 온 칸 수 
 		Q.pop();
 		
 		if(x==N-1 && y==M-1)
@@ -32,10 +32,16 @@ int bfs(){
 			int ny = y+dy[i];
 			
 			if(nx>=0 && ny>=0 && nx<N && ny<M){
+				// 다음에 방문할 곳이 벽이고, B==0이므로 현재까지 부순 벽이 없으므로 진행 가능  
+				// 이미 하나의 벽을 부수고 같은 곳을 다시 방문할 때는 현재 상태가 B==1 이므로 재방문 불가  
 				if(MAP[nx][ny]==1 && B==0){
 					visited[nx][ny][B+1] = true;
 					Q.push(make_pair(make_pair(nx, ny), make_pair(B+1, Cnt+1)));	
 				}
+				// visited[nx][ny][0], visited[nx][ny][1] 으로 나누는 이유는
+				// 벽을 부수지 않고 또는 부수고 이전에 이미 방문했다면,  
+				// 현재 벽을 부수었는지 상태에 따라 같은 상태에서 방문한다면  
+				// 다시 방문하는 것은 중복이기 때문에 visited 이용  
 				else if(MAP[nx][ny]==0 && visited[nx][ny][B]==false){
 					visited[nx][ny][B] = true;
 					Q.push(make_pair(make_pair(nx, ny), make_pair(B, Cnt+1)));
