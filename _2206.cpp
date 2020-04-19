@@ -64,3 +64,72 @@ int main(){
 	cout<<bfs();	
 	return 0;
 }
+
+/*
+처음 작성한 시간초과 코드  
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+#define MAX 1000
+
+int Answer = 987654321;
+int N,M;
+bool MAP[MAX][MAX];
+bool Broken_Wall;
+bool Arrival;
+
+bool visited[MAX][MAX];
+
+int dx[] = {1, -1, 0, 0};
+int dy[] = {0, 0, 1, -1};
+
+void dfs(int cnt, int y, int x){
+	if(y==N-1 && x==M-1){
+		Arrival = true;
+		Answer = min(Answer, cnt+1);
+		return;	
+	}
+	
+	for(int i=0;i<4;i++){
+		int ny = y+dy[i];
+		int nx = x+dx[i];
+		
+		if(ny>=0 && ny<N && nx>=0 && nx<M){
+			if(MAP[ny][nx]==1 && !Broken_Wall){
+				Broken_Wall = true;
+				dfs(cnt+1, ny, nx);
+				Broken_Wall = false;
+			}
+		
+			if(MAP[ny][nx]==0 && !visited[ny][nx]){
+				visited[ny][nx] = true;
+				dfs(cnt+1, ny, nx);
+				visited[ny][nx] = false;
+			}
+		}
+	}	
+}
+
+int main(){
+	cin>>N>>M;
+	for(int i=0;i<N;i++){
+		string s;
+		cin>>s;
+		for(int j=0;j<M;j++)
+			MAP[i][j] = s[j]-'0';
+	}		
+	
+	visited[0][0] = true;
+	dfs(0, 0, 0);
+	
+	if(Arrival)
+		cout<<Answer;
+	else
+		cout<<-1;
+	
+	return 0;
+}
+
+*/
