@@ -15,8 +15,6 @@
 # 각 톱니바퀴 12시 방향이 N극이면 0점
 # 각 톱니바퀴 12시 방향이 S극이면 1,2,3,4순서대로 1, 2, 4, 8점
 
-
-
 from collections import deque
 import sys
 input = sys.stdin.readline
