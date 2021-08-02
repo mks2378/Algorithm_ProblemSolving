@@ -15,8 +15,6 @@
 # 각 톱니바퀴 12시 방향이 N극이면 0점
 # 각 톱니바퀴 12시 방향이 S극이면 1,2,3,4순서대로 1, 2, 4, 8점
 
-
-
 from collections import deque
 import sys
 input = sys.stdin.readline
@@ -37,6 +35,7 @@ for k in range(K):
 
     t1, t2, t3, t4 = 0, 0, 0, 0  # 1 시계, -1, 반시계, 0 그대로
     tire = order[k][0]
+    # 바퀴 시작 순서에 따라 의존도가 다르기 때문에 바퀴마다 직접 설정해주어야 한다.
     if tire == 1:
         t1 = order[k][1]
 
