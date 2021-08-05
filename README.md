@@ -1,2 +1,1 @@
-# BOJ
-Baekjoon Online Judge
+# Algorithm_ProblemSolving
