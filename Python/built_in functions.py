@@ -192,7 +192,7 @@ print(num_list)
 
 # sorted
 num_list = [4, 2, 7, 5, 3]
-print(sorted(num_list))  # 정렬된 새로운 리스트 반환
+print(sorted(num_list))  # 정렬된 새로운 리스트 반환. 원형을 변형시키지 않는다.
 print(sorted(num_list, reverse=True))
 print(num_list)
 print()
